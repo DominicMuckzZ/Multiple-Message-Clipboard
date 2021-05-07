@@ -51,7 +51,6 @@ class Button():
             buttons.pop(buttons.index(self))
             self.clearButton()
 
-
 class newButtonUI():
     def __init__(self):
         self.subWindow = tk.Tk()
@@ -62,7 +61,7 @@ class newButtonUI():
         self.outputEntry = tk.Text(self.subWindow,width=15,height=5)
 
         self.submitButton = tk.Button(self.subWindow,text="Submit",command=self.submit)
-        self.clearButton = tk.Button(self.subWindow,text="Clear",command=self.clear)
+        self.clearButton = tk.Button(self.subWindow,text="Cancel",command=self.cancel)
 
         self.nameLabel.grid(row=1,column=1)
         self.nameEntry.grid(row=1,column=2)
@@ -71,9 +70,8 @@ class newButtonUI():
         self.submitButton.grid(row=3,column=1)
         self.clearButton.grid(row=3,column=2)
         
-    def clear(self):
-        self.nameEntry.delete(0,tk.END)
-        self.outputEntry.delete(0,tk.END)
+    def cancel(self):
+        self.subWindow.destroy()
         
     def submit(self):
         name = self.nameEntry.get()
