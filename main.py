@@ -6,6 +6,7 @@ buttons = []
 window = tk.Tk()
 window.geometry("341x300")
 window.resizable(False,False)
+window.title("Multiple Message Clipboard")
 
 container = tk.Frame(window)
 canvas = tk.Canvas(container,width=318)
@@ -54,27 +55,30 @@ class Button():
 class newButtonUI():
     def __init__(self):
         self.subWindow = tk.Tk()
+        self.subWindow.title("New Message: ")
+        self.subWindow.geometry("290x230")
         self.nameLabel = tk.Label(self.subWindow,text="Name: ")
-        self.nameEntry = tk.Entry(self.subWindow)
+        self.nameEntry = tk.Text(self.subWindow,width=25,height=1)
         
         self.outputLabel = tk.Label(self.subWindow,text="Output: ")
-        self.outputEntry = tk.Text(self.subWindow,width=15,height=5)
+        self.outputEntry = tk.Text(self.subWindow,width=25,height=10)
 
         self.submitButton = tk.Button(self.subWindow,text="Submit",command=self.submit)
         self.clearButton = tk.Button(self.subWindow,text="Cancel",command=self.cancel)
 
-        self.nameLabel.grid(row=1,column=1)
-        self.nameEntry.grid(row=1,column=2)
-        self.outputLabel.grid(row=2,column=1)
-        self.outputEntry.grid(row=2,column=2)
-        self.submitButton.grid(row=3,column=1)
-        self.clearButton.grid(row=3,column=2)
+        self.nameLabel.place(x=0,y=5)
+        self.nameEntry.place(x=75,y=5)
+        self.outputLabel.place(x=0,y=25)
+        self.outputEntry.place(x=75,y=25)
+        self.submitButton.place(x=65,y=200)
+        self.clearButton.place(x=165,y=200)
         
     def cancel(self):
+        print(self.subWindow.geometry())
         self.subWindow.destroy()
         
     def submit(self):
-        name = self.nameEntry.get()
+        name = self.nameEntry.get("1.0","end-1c")
         output = self.outputEntry.get("1.0", "end-1c")
         if name and output:
             newButton = Button(name,output)
@@ -126,3 +130,4 @@ scrollbar.pack(side="left",fill="y")
 listButtons()
 
 window.protocol("WM_DELETE_WINDOW", on_closing)
+window.mainloop()
